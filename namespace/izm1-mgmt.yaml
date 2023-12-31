@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: izm1-management
+  labels:
+    name: izm1-management
