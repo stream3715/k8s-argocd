@@ -1,0 +1,31 @@
+apiVersion: apps/v1   #どのバージョンのk8s APIを利用するか
+kind: Deployment  #作成するリソースの種類
+metadata:
+  name: my-nginx
+spec:
+  replicas: 10 #何個のPodを常時起動させておくか
+  selector:
+    matchLabels:
+      app: my-nginx
+  template:
+    metadata:
+      labels:
+        app: my-nginx
+    spec:
+      containers:
+      - name: my-nginx #コンテナ名
+        image: nginx:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nginx
+  labels:
+    app: nginx
+spec:
+  type: LoadBalancer  #ロードバランサで負荷分散させる
+  ports:
+  - port: 80  #my-nginxで開放するポート
+    protocol: TCP
+  selector:
+    app: my-nginx
